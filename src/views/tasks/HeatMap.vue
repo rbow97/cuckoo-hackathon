@@ -31,16 +31,29 @@
       </p>
     </div>
   </div>
+  <l-map style="height:60vh" :center="center" v-model:zoom="zoom">
+    <l-geo-json :geojson="geojson" :options="geojsonOptions" />
+    <l-tile-layer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      layer-type="base"
+      name="OpenStreetMap"
+    />
+  </l-map>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import "leaflet/dist/leaflet.css"
+import { LMap, LGeoJson, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { Watch } from 'vue-property-decorator';
+import { latLng } from "leaflet";
 
 @Options({
   components: {
-
-  },
+    LMap,
+    LGeoJson,
+    LTileLayer
+  }, 
   computed: {
     device () {
       const d = this.$store.getters['groups/getGroup'](this.deviceId);
@@ -64,6 +77,19 @@ import { Watch } from 'vue-property-decorator';
 
 export default class HeatMap extends Vue {
   // Properties
+  geojson = {
+    type: "FeatureCollection",
+    features: {
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-104.99404, 39.75621]
+      }
+    }
+  };
+  geojsonOptions = {};
+  center = latLng(51.5897,-0.0409197);
+  zoom = 10;
+
   private deviceId = "01FHB33659RWM0X495B1M0TP11";
   private deviceLoaded = false;
 
@@ -86,6 +112,20 @@ export default class HeatMap extends Vue {
   }
 
   // Vue Lifecycle Functions
+
+  async beforeMount() {
+    // HERE is where to load Leaflet components!
+    const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
+
+    // And now the Leaflet circleMarker function can be used by the options:
+    this.geojsonOptions.pointToLayer = (feature, latLng) => {
+      // circleMarker(latLng, { radius: 8 }
+      console.log(feature)
+      console.log(latLng)
+      console.log('a');
+    }
+  }
+
   beforeUnmount () {
     this.$store.dispatch("messages/reset");
   }
