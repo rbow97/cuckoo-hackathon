@@ -20,8 +20,8 @@ export default createStore({
   },
   actions: {
     createToken ({ commit, state }: any, body: any) {
-      const mainfluxEmail = "",
-            mainfluxPw = "";
+      const mainfluxEmail = "admin@janga.la",
+            mainfluxPw = "password";
       const requestInfo = {
         method: 'POST',
         body: JSON.stringify({

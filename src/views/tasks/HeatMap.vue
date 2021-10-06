@@ -64,7 +64,8 @@ import { Watch } from 'vue-property-decorator';
 
 export default class HeatMap extends Vue {
   // Properties
-  private deviceId = "01FH5FA5P2CW8B9V5FVB1TGHCQ";
+  private deviceId = "01FHB33659RWM0X495B1M0TP11";
+  private deviceLoaded = false;
 
   // Computed Properties
   private device: any;
@@ -73,21 +74,15 @@ export default class HeatMap extends Vue {
 
   // Watcher Functions
   // TODO think of cleaner way to implement this
-  @Watch('deviceThings', { immediate: true })
-  deviceThingsChange (newVal: any, oldVal: any) {
+  @Watch('device', { immediate: true })
+  deviceThingsChange (newVal: any) {
+    if (!('id' in newVal) || this.deviceLoaded) {
+      return;
+    }
     const name = "geolocation";
-    const newThings: { [key: string]: any; } = {};
-    for (const id in newVal) {
-      if (oldVal == undefined || !(id in oldVal)) {
-        newThings[id] = newVal[id];
-      }
-    }
-
-    for (const id in newThings) {
-      const newThing = newThings[id];
-      // Get only with geo location name
-      this.$store.dispatch("messages/getThingMessages", { thing: newThing, name: name});
-    }
+    const params = `device=${this.device.id}&name=${name}`;
+    this.$store.dispatch("messages/getMessages", { params: params, offset: 0, limit: 200 });
+    this.deviceLoaded = true;
   }
 
   // Vue Lifecycle Functions

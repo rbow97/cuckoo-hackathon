@@ -145,6 +145,7 @@ export default class SiteOverview extends Vue {
     'numSta', 'rxBytes', 'txBytes', 'userNumSta', 'userRxBytes', 'userRxDropped', 'userRxErrors',
     'userRxPackets', 'userTxBytes', 'userTxDropped', 'userTxErrors', 'userTxPackets', 'userTxRetries'
   ];
+  private siteLoaded = false;
 
   // Computed Properties
   private site: any;
@@ -154,23 +155,15 @@ export default class SiteOverview extends Vue {
 
   // Watcher Functions
   // TODO think of cleaner way to implement this
-  @Watch('siteThings', { immediate: true })
-  siteThingsChange (newVal: any, oldVal: any) {
-    // Get delta between old and new value so not getting messages for same things
-    const newThings: { [key: string]: any; } = {};
-    for (const id in newVal) {
-      if (oldVal == undefined || !(id in oldVal)) {
-        newThings[id] = newVal[id];
-      }
+  @Watch('site', { immediate: true })
+  siteThingsChange (newVal: any) {
+    if (!('id' in newVal) || this.siteLoaded) {
+      return;
     }
 
-    for (const id in newThings) {
-      const newThing = newThings[id];
-      for (let i = 0; i < this.messageMetrics.length; i++) {
-        const name = this.messageMetrics[i];
-        this.$store.dispatch("messages/getThingMessages", { thing: newThing, name: name, offset: 0, limit: 1 });
-      }
-    }
+    const params = `site=${this.site.id}`;
+    this.$store.dispatch("messages/getMessages", { params: params, offset: 0, limit: 200 });
+    this.siteLoaded = true;
   }
 
   // Vue Lifecycle Functions

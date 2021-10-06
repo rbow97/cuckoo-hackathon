@@ -17,16 +17,16 @@ export default ({
     },
     // TODO refactor in future
     // Probably merge into one function and give option to set offset and limit
-    getThingMessages ({ rootState, commit }: any, { thing, name="", offset=0, limit=100 } :any) {
+    getMessages ({ rootState, commit }: any, { offset=0, limit=100, params="" } :any) {
       const token = rootState.mainflux.user.token,
             baseUrl = rootState.mainflux.baseUrl;
-      const chOffset = 0, chLimit = 10, params = `offset=${chOffset}&limit=${chLimit}`;
+      const chOffset = 0, chLimit = 10, chParams = `offset=${chOffset}&limit=${chLimit}`;
       const chHeaders = {
         'Content-Type': 'application/json',
         'Authorization': token
       };
 
-      fetch(`${baseUrl}things/${thing.id}/channels?${params}`, { headers: chHeaders }).then((chResp: any) => {
+      fetch(`${baseUrl}things/3a8d6e3f-5497-45b0-8afb-05ca45e819ae/channels?${chParams}`, { headers: chHeaders }).then((chResp: any) => {
         chResp.text().then((chText: string) => {
           if (chResp.status == 200) {
             const chParsed = JSON.parse(chText);
@@ -43,17 +43,15 @@ export default ({
             if (!dataChannelId) {
               return;
             }
+
             const headers = {
               'Content-Type': 'application/json',
-              'Authorization': thing.key
+              'Authorization': "7ff7bc61-9d1f-4037-a2f1-6b3f61ed3d58"
             };
-            let params = `offset=${offset}&limit=${limit}`;
+            params += params ? "&" : "";
+            params += `offset=${offset}&limit=${limit}`;
 
-            if (name) {
-              params += `&name=${name}`;
-            }
-
-            fetch(`${baseUrl}reader/channels/${dataChannelId}/messages?${params}`, { headers }).then((resp: any) => {
+            fetch(`${baseUrl}reader/channels/732b1a45-dde3-4dc7-a972-4e242c2d75ef/messages?${params}`, { headers }).then((resp: any) => {
               resp.text().then((text: string) => {
                 if (resp.status == 200) {
                   const parsed = JSON.parse(text);

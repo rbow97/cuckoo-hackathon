@@ -78,16 +78,13 @@ export default class ComponentOverview extends Vue {
   // TODO think of cleaner way to implement this
   @Watch('thing', { immediate: true })
   thingChange (newVal: any) {
-    if (!newVal || Object.keys(newVal).length == 0 || this.thingLoaded) {
+    if (!('id' in newVal) || this.thingLoaded) {
       return;
     }
 
+    const params = `component=${this.thing.id}`;
+    this.$store.dispatch("messages/getMessages", { params: params, offset: 0, limit: 200 });
     this.thingLoaded = true;
-
-    for (let i = 0; i < this.messageMetrics.length; i++) {
-      const name = this.messageMetrics[i];
-      this.$store.dispatch("messages/getThingMessages", { thing: newVal, name: name, offset: 0, limit: 1 });
-    }
   }
 
   // Vue Lifecycle Functions

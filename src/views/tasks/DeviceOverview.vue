@@ -139,6 +139,7 @@ export default class DeviceOverview extends Vue {
     'numSta', 'rxBytes', 'txBytes', 'userNumSta', 'userRxBytes', 'userRxDropped', 'userRxErrors',
     'userRxPackets', 'userTxBytes', 'userTxDropped', 'userTxErrors', 'userTxPackets', 'userTxRetries'
   ];
+  private deviceLoaded = false;
 
   // Computed Properties
   private device: any;
@@ -147,23 +148,15 @@ export default class DeviceOverview extends Vue {
 
   // Watcher Functions
   // TODO think of cleaner way to implement this
-  @Watch('deviceThings', { immediate: true })
-  deviceThingsChange (newVal: any, oldVal: any) {
-    const newThings: { [key: string]: any; } = {};
-    for (const id in newVal) {
-      if (oldVal == undefined || !(id in oldVal)) {
-        newThings[id] = newVal[id];
-      }
+  @Watch('device', { immediate: true })
+  deviceThingsChange (newVal: any) {
+    if (!('id' in newVal) || this.deviceLoaded) {
+      return;
     }
 
-    for (const id in newThings) {
-      const newThing = newThings[id];
-
-      for (let i = 0; i < this.messageMetrics.length; i++) {
-        const name = this.messageMetrics[i];
-        this.$store.dispatch("messages/getThingMessages", { thing: newThing, name: name, offset: 0, limit: 1 });
-      }
-    }
+    const params = `device=${this.device.id}`;
+    this.$store.dispatch("messages/getMessages", { params: params, offset: 0, limit: 200 });
+    this.deviceLoaded = true;
   }
 
   // Vue Lifecycle Functions
