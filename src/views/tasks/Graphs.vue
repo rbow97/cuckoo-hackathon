@@ -17,11 +17,8 @@
       <p>
         Some properties have been made accessible to you.
         You don't have to use them and can create your own.
-        The properties currently accessible are:
+        The properties can be found in the MultiGraph class
       </p>
-      <ul class="p-4 mb-4">
-        <li>Add</li>
-      </ul>
 
       <p>
         If there is any other data you need access to please let us know and we can work on getting it to you.
@@ -29,11 +26,6 @@
       </p>
     </div>
   </div>
-
-  TODO
-  Give thing
-  Give thing messages
-  Probably hardcode thingId and thing metric so can be changed if needed
 </template>
 
 <script lang="ts">
