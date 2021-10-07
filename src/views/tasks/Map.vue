@@ -48,6 +48,8 @@ import "leaflet/dist/leaflet.css"
 import { LMap, LGeoJson, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { latLng } from "leaflet";
 
+import { GeoOptions } from '../../types';
+
 @Options({
   components: {
     LMap,
@@ -77,7 +79,7 @@ export default class Map extends Vue {
       }
     }
   };
-  geojsonOptions = {};
+  geojsonOptions: GeoOptions = {};
   center = latLng(51.5897,-0.0409197);
   zoom = 16;
 
