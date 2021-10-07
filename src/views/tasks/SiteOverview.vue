@@ -1,177 +1,304 @@
 <template>
   <div class="shadow p-4">
-    <div class="mb-6">
-      <p class="text-3xl font-semibold mb-2 text-center">Site Overview</p>
-
-      <p>
-        Congratulations you've chosen the task of creating a site overview!
-        Before diving into the tasks let's breakdown what a site is:
-      </p>
-      <ul class="p-4 mb-4">
-        <li>A site is a node in a tree which can either have a site as a parent or the root sites group</li>
-        <li>A site will have children and these children are the devices</li>
-        <li>The devices will have children of their own and these will be the components of the device</li>
-        <li>Components send up metrics to the cloud and this is the level we get our messages from</li>
-      </ul>
-
-      <p>Now we know what a site is, let's look at the tasks:</p>
-      <ul class="p-4 mb-4">
-        <li>Implement uPlot library</li>
-        <li>Display aggregated metrics for a site across all devices</li>
-        <li>Display a tree structure representing the hierarchy of the selected site</li>
-        <li>Make each section of tree structure linkable to overview</li>
-      </ul>
-
-      <p>
-        Some properties have been made accessible to you.
-        You don't have to use them and can create your own.
-        The properties currently accessible are:
-      </p>
-      <ul class="p-4 mb-4">
-        <li>messageMetrics - An array of names of the metrics to be displayed</li>
-        <li>site - An object containing the site information</li>
-        <li>siteDevices - An object of site devices with key being id and value being device object</li>
-        <li>siteThings - An object of site things with key being id and value being thing object</li>
-        <li>siteMessages - An array of all site messages sent from site things</li>
-      </ul>
-
-      <p>
-        If there is any other data you need access to please let us know and we can work on getting it to you.
-        You should be able to complete this task within this component but feel free to create child components if needed :)
-      </p>
-    </div>
-
-    <!-- <div>
-      <p class="text-3xl font-semibold mb-4">Examples</p>
-      <p class="text-xl font-semibold mb-4">Example of Displayed Stats</p>
-      <div class="flex flex-wrap -mx-3 mb-20">
-        <div class="w-1/2 xl:w-1/4 px-3">
-          <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0">
-            <svg class="w-16 h-16 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
-              <path d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
-            </svg>
-
-            <div class="text-gray-700">
-              <p class="font-semibold text-3xl">237</p>
-              <p>Products Sold</p>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="w-1/2 xl:w-1/4 px-3">
-          <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0">
-            <svg class="w-16 h-16 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
-              <path d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z"></path>
-            </svg>
-
-            <div class="text-gray-700">
-              <p class="font-semibold text-3xl">177</p>
-              <p>Product Reviews</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-1/2 xl:w-1/4 px-3">
-          <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6">
-            <svg class="w-16 h-16 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
-              <path d="M14.999,8.543c0,0.229-0.188,0.417-0.416,0.417H5.417C5.187,8.959,5,8.772,5,8.543s0.188-0.417,0.417-0.417h9.167C14.812,8.126,14.999,8.314,14.999,8.543 M12.037,10.213H5.417C5.187,10.213,5,10.4,5,10.63c0,0.229,0.188,0.416,0.417,0.416h6.621c0.229,0,0.416-0.188,0.416-0.416C12.453,10.4,12.266,10.213,12.037,10.213 M14.583,6.046H5.417C5.187,6.046,5,6.233,5,6.463c0,0.229,0.188,0.417,0.417,0.417h9.167c0.229,0,0.416-0.188,0.416-0.417C14.999,6.233,14.812,6.046,14.583,6.046 M17.916,3.542v10c0,0.229-0.188,0.417-0.417,0.417H9.373l-2.829,2.796c-0.117,0.116-0.71,0.297-0.71-0.296v-2.5H2.5c-0.229,0-0.417-0.188-0.417-0.417v-10c0-0.229,0.188-0.417,0.417-0.417h15C17.729,3.126,17.916,3.313,17.916,3.542 M17.083,3.959H2.917v9.167H6.25c0.229,0,0.417,0.187,0.417,0.416v1.919l2.242-2.215c0.079-0.077,0.184-0.12,0.294-0.12h7.881V3.959z"></path>
-            </svg>
-
-            <div class="text-gray-700">
-              <p class="font-semibold text-3xl">31</p>
-              <p>New Enquiries</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-1/2 xl:w-1/4 px-3">
-          <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6">
-            <svg class="w-16 h-16 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
-              <path d="M17.431,2.156h-3.715c-0.228,0-0.413,0.186-0.413,0.413v6.973h-2.89V6.687c0-0.229-0.186-0.413-0.413-0.413H6.285c-0.228,0-0.413,0.184-0.413,0.413v6.388H2.569c-0.227,0-0.413,0.187-0.413,0.413v3.942c0,0.228,0.186,0.413,0.413,0.413h14.862c0.228,0,0.413-0.186,0.413-0.413V2.569C17.844,2.342,17.658,2.156,17.431,2.156 M5.872,17.019h-2.89v-3.117h2.89V17.019zM9.587,17.019h-2.89V7.1h2.89V17.019z M13.303,17.019h-2.89v-6.651h2.89V17.019z M17.019,17.019h-2.891V2.982h2.891V17.019z"></path>
-            </svg>
-
-            <div class="text-gray-700">
-              <p class="font-semibold text-3xl">1,653</p>
-              <p>Product Views</p>
-            </div>
-
+    <div class="flex flex-wrap -mx-3 mb-20 mb-6">
+      <div class="w-1/2 xl:w-1/2 px-3">
+        <div
+          class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            />
+          </svg>
+          <div class="text-gray-700">
+            <p class="font-semibold text-3xl">
+              {{ site.name }}
+            </p>
+            <p>Site Name</p>
           </div>
         </div>
       </div>
-    </div> -->
+      <div class="w-1/2 xl:w-1/2 px-3">
+        <div
+          class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+            />
+          </svg>
+          <div class="text-gray-700">
+            <p class="font-semibold text-3xl">
+              {{ Object.keys(siteDevices).length }}
+            </p>
+            <p>Site Devices</p>
+          </div>
+        </div>
+      </div>
+      <div
+        v-for="(aggregatedMessage, key) in aggregatedMessages"
+        :key="key"
+        class="w-1/2 xl:w-1/2 px-3"
+      >
+        <div
+          class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            v-if="key === 'clients'"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            v-if="key === 'rxGigabytes'"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            v-if="key === 'txGigabytes'"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+            />
+          </svg>
+          <div class="text-gray-700">
+            <p class="font-semibold text-3xl">{{ aggregatedMessage }}</p>
+            <p>{{ key }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <div
+          class="bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="{2}"
+              d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <div>
+            <div class="w-full text-gray-700">
+              <p class="font-semibold text-3xl">
+                {{ site.metadata.geolocation.altitude }}
+              </p>
+              <p>altitude</p>
+            </div>
+            <div class="text-gray-700">
+              <p class="font-semibold text-3xl">
+                {{ site.metadata.geolocation.latitude }}
+              </p>
+              <p>latitude</p>
+            </div>
+            <div class="text-gray-700">
+              <p class="font-semibold text-3xl">
+                {{ site.metadata.geolocation.longitude }}
+              </p>
+              <p>longitude</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Watch } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component'
+import { Watch } from 'vue-property-decorator'
+
+interface AggregratedMessageProps {
+  rxGigabytes: number
+  txGigabytes: number
+  clients: number
+}
 
 @Options({
-  components: {
-
-  },
+  components: {},
   computed: {
-    site () {
-      const s = this.$store.getters['groups/getGroup'](this.$route.params.siteId);
-
-      if ("metadata" in s && s.metadata.type == "Site") {
-        return s;
+    site() {
+      const s = this.$store.getters['groups/getGroup'](
+        this.$route.params.siteId,
+      )
+      if ('metadata' in s && s.metadata.type == 'Site') {
+        return s
       }
-
-      return {};
+      return {}
     },
-    siteDevices () {
-      const sD = this.$store.getters['groups/getSiteDevices'](this.$route.params.siteId);
-      return sD;
+    siteDevices() {
+      const sD = this.$store.getters['groups/getSiteDevices'](
+        this.$route.params.siteId,
+      )
+      return sD
     },
-    siteThings () {
-      const sT = this.$store.getters['things/getSiteThings'](this.$route.params.siteId);
+    siteThings() {
+      const sT = this.$store.getters['things/getSiteThings'](
+        this.$route.params.siteId,
+      )
       return sT
     },
-    siteMessages () {
-      const m = this.$store.getters['messages/getMessages'];
-      return m;
-    }
-  }
+    siteMessages() {
+      const m = this.$store.getters['messages/getMessages']
+      return m
+    },
+    aggregatedMessages() {
+      const deviceMessages: any = {}
+      this.siteMessages.map((siteMessage: any) => {
+        if (!(siteMessage.device in deviceMessages)) {
+          deviceMessages[siteMessage.device] = {}
+        }
+        if (!(siteMessage.name in deviceMessages[siteMessage.device])) {
+          if ('value' in siteMessage) {
+            deviceMessages[siteMessage.device][siteMessage.name] =
+              siteMessage.value
+          }
+          if ('string_value' in siteMessage) {
+            deviceMessages[siteMessage.device][siteMessage.name] =
+              siteMessage.string_value
+          }
+        }
+      })
+      const aggregatedMessages: AggregratedMessageProps = {
+        rxGigabytes: 0,
+        txGigabytes: 0,
+        clients: 0,
+      }
+      for (const key in deviceMessages) {
+        if ('rxBytes' in deviceMessages[key]) {
+          aggregatedMessages.rxGigabytes += deviceMessages[key].rxBytes
+        }
+        if ('txBytes' in deviceMessages[key]) {
+          aggregatedMessages.txGigabytes += deviceMessages[key].txBytes
+        }
+        if ('numSta' in deviceMessages[key]) {
+          aggregatedMessages.clients += deviceMessages[key].numSta
+        }
+      }
+      aggregatedMessages.rxGigabytes /= 1000000000
+      aggregatedMessages.txGigabytes /= 1000000000
+      return aggregatedMessages
+    },
+  },
 })
-
 export default class SiteOverview extends Vue {
   // Get last metric for each name
   // Properties
   private messageMetrics = [
-    'guestNumSta', 'guestRxBytes', 'guestRxDropped', 'guestRxErrors', 'guestRxPackets',
-    'guestTxBytes', 'guestTxDropped', 'guestTxErrors', 'guestTxPackets', 'guestTxRetries',
-    'numSta', 'rxBytes', 'txBytes', 'userNumSta', 'userRxBytes', 'userRxDropped', 'userRxErrors',
-    'userRxPackets', 'userTxBytes', 'userTxDropped', 'userTxErrors', 'userTxPackets', 'userTxRetries'
-  ];
-  private siteLoaded = false;
+    'guestNumSta',
+    'guestRxBytes',
+    'guestRxDropped',
+    'guestRxErrors',
+    'guestRxPackets',
+    'guestTxBytes',
+    'guestTxDropped',
+    'guestTxErrors',
+    'guestTxPackets',
+    'guestTxRetries',
+    'numSta',
+    'rxBytes',
+    'txBytes',
+    'userNumSta',
+    'userRxBytes',
+    'userRxDropped',
+    'userRxErrors',
+    'userRxPackets',
+    'userTxBytes',
+    'userTxDropped',
+    'userTxErrors',
+    'userTxPackets',
+    'userTxRetries',
+  ]
+  private siteLoaded = false
 
   // Computed Properties
-  private site: any;
-  private siteDevices: any;
-  private siteThings: any;
-  private siteMessages: any;
+  private site: any
+  private siteDevices: any
+  private siteThings: any
+  private siteMessages: any
 
   // Watcher Functions
   // TODO think of cleaner way to implement this
   @Watch('site', { immediate: true })
-  siteThingsChange (newVal: any) {
+  siteThingsChange(newVal: any) {
     if (!('id' in newVal) || this.siteLoaded) {
-      return;
+      return
     }
 
-    const params = `site=${this.site.id}`;
-    this.$store.dispatch("messages/getMessages", { params: params, offset: 0, limit: 200 });
-    this.siteLoaded = true;
+    const params = `site=${this.site.id}`
+    this.$store.dispatch('messages/getMessages', {
+      params: params,
+      offset: 0,
+      limit: 200,
+    })
+    this.siteLoaded = true
   }
 
   // Vue Lifecycle Functions
-  beforeUnmount () {
-    this.$store.dispatch("messages/reset");
+  beforeUnmount() {
+    this.$store.dispatch('messages/reset')
   }
 
   // Methods
-
 }
 </script>
+
+<style>
+.icon {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+</style>
