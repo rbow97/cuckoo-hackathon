@@ -15,6 +15,8 @@ import Map from '@/views/tasks/Map.vue'
 import Graphs from '@/views/tasks/Graphs.vue'
 import MultiGraph from '@/views/tasks/MultiGraph.vue'
 import ZoomableGraph from '@/views/tasks/ZoomableGraph.vue'
+// import uPlot from '@/views/tasks/uPlot.vue'
+
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', redirect: { name: 'HackathonOverview' } },
@@ -36,7 +38,8 @@ const routes: Array<RouteRecordRaw> = [
       { path: 'map', name: 'Map', component: Map },
       { path: 'graphs', name: 'Graphs', component: Graphs },
       { path: 'multigraph', name: 'MultiGraph', component: MultiGraph },
-      { path: 'zoomablegraph', name: 'ZoomableGraph', component: ZoomableGraph }
+      { path: 'zoomablegraph', name: 'ZoomableGraph', component: ZoomableGraph },
+      // { path: 'uplot', name: 'uPlot', component: uPlot }
     ]
   }
 ]

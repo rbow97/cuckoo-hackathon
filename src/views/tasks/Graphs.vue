@@ -8,7 +8,7 @@
         Let's take a look at the tasks:
       </p>
       <ul class="p-4 mb-4">
-        <li>Implement uPlot library</li>
+        <li>Implement uPlot chart, example in uPlot.vue</li>
         <li>Filter by dates, site, device, thing and name</li>
         <li>Implement different kinds of graphs to display a things metric</li>
         <li>Additional tasks. Type correctly and create interface / classes for objects</li>
