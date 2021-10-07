@@ -31,24 +31,30 @@
       </p>
     </div>
   </div>
-
-  <l-map style="height:60vh" :center="center">
+  <l-map style="height:60vh" :center="center" v-model:zoom="zoom">
     <l-geo-json :geojson="geojson" :options="geojsonOptions" />
+    <l-tile-layer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      layer-type="base"
+      name="OpenStreetMap"
+    />
   </l-map>
 </template>
 
-<script lang="js">
+<script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { Watch } from 'vue-property-decorator';
 import "leaflet/dist/leaflet.css"
-import { LMap, LGeoJson } from "@vue-leaflet/vue-leaflet";
+import { LMap, LGeoJson, LTileLayer } from "@vue-leaflet/vue-leaflet";
 import { latLng } from "leaflet";
 
 @Options({
   components: {
     LMap,
     LGeoJson,
+    LTileLayer
   },
-  computed: {
+  computed: { 
     sites () {
       const s = this.$store.getters['groups/getSites'];
       return s;
@@ -72,12 +78,12 @@ export default class Map extends Vue {
     }
   };
   geojsonOptions = {};
-  center = latLng(47.41322, -1.219482);
-
+  center = latLng(51.5897,-0.0409197);
+  zoom = 16;
 
   // Computed Properties
-  // private sites: any;
-  // private devices: any;
+  private sites: any;
+  private devices: any;
 
   // Watcher Functions
 
@@ -93,7 +99,6 @@ export default class Map extends Vue {
       console.log(latLng)
       console.log('a');
     }
-    this.mapIsReady = true;
   }
 
   // Methods
@@ -101,6 +106,6 @@ export default class Map extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped> 
 
 </style>

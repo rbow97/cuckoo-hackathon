@@ -25,11 +25,13 @@
 
     <div class="mb-4">
       <p class="text-2xl font-semibold mb-2">Tasks</p>
-      <p>The tasks for today are as followed:</p>
+      <p>Each task is self-contained within a vue component, accessible by link in the side-bar</p>
+      <p>Services have been connected up so that all of the data required by the task is available</p>
+      <p>The tasks for today are as follows:</p>
       <ul class="p-4">
-        <li>Site Overview - Create a an overview for a site</li>
-        <li>Device Overview - Create a an overview for a device</li>
-        <li>Component Overview - Create a an overview for a component</li>
+        <li>Site Overview - Create an overview for a site</li>
+        <li>Device Overview - Create an overview for a device</li>
+        <li>Component Overview - Create an overview for a component</li>
         <li>Heat Map - Create a heat map of where our Big Boxes have travelled</li>
         <li>Map - Display our sites and devices on a map across the globe</li>
         <li>Graphs - Display our sites and devices on a map across the globe</li>
@@ -40,7 +42,7 @@
 
     <div class="mb-4">
       <p class="text-2xl font-semibold mb-2">Useful Links</p>
-      <p>Below is a list of links what may be useful throughout the day:</p>
+      <p>Below is a list of links that may be useful throughout the day:</p>
       <ul class="p-4">
         <li><a href="https://github.com/Murked/vue-tailwind-admin" class="hover:bg-gray-200" target="_blank">Tailwind Dashboard Used For CSS Reference</a></li>
         <li><a href="https://github.com/leeoniya/uPlot" class="hover:bg-gray-200" target="_blank">uPlot Git Repo</a></li>
