@@ -34,7 +34,7 @@
         <li>Component Overview - Create an overview for a component</li>
         <li>Heat Map - Create a heat map of where our Big Boxes have travelled</li>
         <li>Map - Display our sites and devices on a map across the globe</li>
-        <li>Graphs - Display our sites and devices on a map across the globe</li>
+        <li>Graphs - Display multiple graphs/li>
         <li>Multi Graph - Display multiple components(things) on a graph and overlay graphs with two different metrics</li>
         <li>Zoomable Graph - Implement smooth scalable zooming on graphs</li>
       </ul>
