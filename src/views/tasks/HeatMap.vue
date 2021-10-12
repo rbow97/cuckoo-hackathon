@@ -46,6 +46,8 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 
+import { GeoOptions } from '../../types';
+
 @Options({
   components: {},
   computed: {
@@ -73,14 +75,15 @@ export default class HeatMap extends Vue {
   geojson = {
     type: 'FeatureCollection',
     features: {
-      geometry: {
-        type: 'Point',
-        coordinates: [-104.99404, 39.75621],
-      },
-    },
-  }
-  geojsonOptions = {}
-  zoom = 10
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-104.99404, 39.75621]
+      }
+    }
+  };
+  geojsonOptions: GeoOptions = {};
+  center = latLng(51.5897,-0.0409197);
+  zoom = 10;
 
   private deviceId = '01FHB33659RWM0X495B1M0TP11'
   private deviceLoaded = false

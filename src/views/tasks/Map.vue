@@ -49,6 +49,8 @@ import { Watch } from 'vue-property-decorator'
 
 import { latLng } from 'leaflet'
 
+import { GeoOptions } from '../../types';
+
 @Options({
   components: {},
   computed: {
@@ -67,15 +69,15 @@ export default class Map extends Vue {
   geojson = {
     type: 'FeatureCollection',
     features: {
-      geometry: {
-        type: 'Point',
-        coordinates: [-104.99404, 39.75621],
-      },
-    },
-  }
-  geojsonOptions = {}
-  center = latLng(51.5897, -0.0409197)
-  zoom = 16
+      "geometry": {
+          "type": "Point",
+          "coordinates": [-104.99404, 39.75621]
+      }
+    }
+  };
+  geojsonOptions: GeoOptions = {};
+  center = latLng(51.5897,-0.0409197);
+  zoom = 16;
 
   // Computed Properties
   private sites: any
